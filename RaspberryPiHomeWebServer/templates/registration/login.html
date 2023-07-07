@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <img src="{% static 'images/logo_nobg.png' %}" alt="Nike Logo" class="logo">
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="text" class="input-field" placeholder="Username" name="username">
+    </div>
+    <div class="form-group">
+      <input type="password" class="input-field" placeholder="Password" name="password">
+    </div>
+    <button type="submit" class="login-button">Log In</button>
+    <a href="/i-forgot" class="forgot-password">Forgot Password?</a>
+    {% if error_message %}
+    <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+  </form>
+</div>
+
+<footer class="footer">
+  <p class="footer-text">&copy; Romeo558'corp 2023 Copyright. &copy;
+    CapybaraOS v1.1</p>
+</footer>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}

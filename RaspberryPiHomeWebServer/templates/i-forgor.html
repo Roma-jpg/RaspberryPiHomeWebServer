@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <title>Forgot Password</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background-color: #f7f7f7;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 300px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      width: 128px;
+      height: 128px;
+      margin-bottom: 20px;
+      object-fit: contain;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .input-field {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .forgot-password {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      background-color: #f44336;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .login-button:hover {
+      background-color: #d32f2f;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      text-decoration: none;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .footer-text {
+      margin: 0;
+    }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 4px;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .popup-content {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .close-button {
+      display: block;
+      margin: 0 auto;
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <img class="logo" src="{% static 'images/logo_nobg.png' %}" alt="Logo">
+    <h2>Forgot Password</h2>
+    <form id="forgot-password-form">
+      <div class="form-group">
+        <input type="email" class="input-field" placeholder="Email" required>
+      </div>
+      <button type="submit" class="login-button">Reset Password</button>
+      <a href="/accounts/login" class="forgot-password">Remembered your password?</a>
+    </form>
+    <div class="footer">
+      <p class="footer-text">&copy; Romeo558'corp 2023 Copyright.
+    CapybaraOS v1.1</p>
+    </div>
+  </div>
+
+  <!-- Popup message -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <p>If the email exists, we will send an email with your new password.</p>
+      <button id="close-button" class="close-button">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to display the popup message
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+    }
+
+    // Function to close the popup message and redirect to the login page
+    function closePopup() {
+      var popup = document.getElementById('popup');
+      popup.style.opacity = '0';
+      setTimeout(function() {
+        popup.style.display = 'none';
+        window.location.href = '/accounts/login';
+      }, 300);
+    }
+
+    // Add event listener to the form submit event
+    document.getElementById('forgot-password-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      showPopup();
+    });
+
+    // Add event listener to the close button click event
+    document.getElementById('close-button').addEventListener('click', function () {
+      closePopup();
+    });
+  </script>
+</body>
+</html>

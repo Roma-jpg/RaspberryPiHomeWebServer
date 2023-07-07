@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <title>Tab Paging</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/tabs.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab" onclick="openTab(event, 'homepage')">Homepage</button>
+      <button class="tab" onclick="openTab(event, 'status')">Status</button>
+      <button class="tab" onclick="openTab(event, 'variables')">Variables</button>
+      <button class="tab" onclick="openTab(event, 'connection')">Connection</button>
+      <button class="tab" onclick="openTab(event, 'terminal')">Terminal</button>
+    </div>
+    <div class="tab-content">
+      <div id="homepage" class="tab-pane">
+        <p>This is a Homepage</p>
+      </div>
+      <div id="status" class="tab-pane">
+        <p>This is a Status Page</p>
+      </div>
+      <div id="variables" class="tab-pane">
+        <p>This is a Variable Page</p>
+      </div>
+      <div id="connection" class="tab-pane">
+        <p>This is a Connection Page</p>
+      </div>
+      <div id="terminal" class="tab-pane">
+  <div id="terminal-output">
+    {% for command in commands %}
+      <p>{{ command.command_text }}</p>
+      <pre>{{ command.output_text }}</pre>
+    {% endfor %}
+  </div>
+  <form id="terminal-form" action="{% url 'execute_command' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" id="command-input" name="command" placeholder="Enter a command">
+    <button type="submit">Execute</button>
+  </form>
+</div>
+    </div>
+  </div>
+
+  <script src="{% static 'js/tabs.js' %}"></script>
+</body>
+</html>
